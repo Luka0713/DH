@@ -1,0 +1,23 @@
+1. Use Python to annotate the extracted .txt documents. We provide two Python packages, namely Jesuitknowledge_1.py and Jesuitknowledge_2.py.
+
+    # Note: _1.py uses CkipTagger to annotate the Database. While _1.py annotates individual files, _2.py annotates all .txt files in the input folder.
+    # _1.py retrieves the model from gdrive, whereas _2.py requires the model to be downloaded locally beforehand.
+Before using, remember to update the paths for data, input, and output.
+    # You can refer to the "1674_坤輿圖說_WS.txt" and "1799_地球圖説_WS.txt" files in the folder, which have already been segmented. Note that     
+    # although CkipTagger's segmentation quality surpasses Jieba, it's not entirely accurate. Manual verification is still necessary.
+
+2. (Optional) Extract_WS_POS_NER.py
+
+    # Note: This extracts WS, POS, and NER results from all .txt files in a specific folder.
+
+3. Use the N-gram tool on the Ctext website to extract word frequencies from the "1674_坤輿圖說_WS.txt" and "1799_地球圖説_WS.txt" files, and then export them as CSV files. The tool can be found at: http://ctext.org/plugins/texttools/#ngram.
+
+4. Manually filter the data, then utilize the ChatGpt Code Interpreter for data analysis.
+
+=======================
+This project uses the open-source Chinese processing toolkit CkipTagger, which includes Word Segmentation (WS), Part-of-Speech tagging (POS), and Named Entity Recognition (NER) capabilities.
+
+Through manual verification by our team, its word segmentation accuracy is notably higher than Jieba.
+
+Project link: https://github.com/ckiplab/ckiptagger
+

@@ -1,0 +1,33 @@
+1_task.pdf has two books, 《坤輿圖說》 and 《地球圖說》, written by different Jesuit missionaries in 1674 and 1799. Both discuss cartography. We're trying to see how the knowledge about astronomy and geography changed in China over these years, thanks to the missionaries.
+
+    # Please note, 1_task.pdf only contains 2 missionary documents as examples. The sample images in the folder, as well as the sample "Output_Example_耶稣天主.xlsx" document, are sourced from a database containing 69 missionary documents.
+
+Here's our workflows and prompts:
+
+1. Turn 1_task.pdf into 1_task.txt using OCR.
+
+    # I've had good results with Foxit Pdf Reader's OCR. Just remember to set the text type to "Taiwan Traditional Chinese(台灣繁體)". But if you have another OCR tool you like, go for it. Feel free to use other OCR programs as well.
+    # Note: To ensure the quality of OCR, it's essential to conduct manual verification.
+
+2. Next, get rid of the front and back covers, any intros or conclusions not by the missionaries, footnotes, and other stuff we don't need. Then, mark the start of each book with ["Book_Title"], and the end with ［/"Book_Title"]. Save this as _work1.txt.
+
+    # Heads up: You can take out headers and footers now, or leave them for ChatGPT to handle later.
+
+3. Use ChatGPT CI to clean up the text. This means getting rid of punctuation, English letters, numbers, spaces, and line breaks.
+
+    # Remember: Save a "_clean1.txt" for each book from 1_task.txt.
+    # Important: Keep the starting symbol for each book. If you don't, the extraction might not work.
+
+Prompt：
+- My task is divided into 2 parts. In part 1, open and read my document and delete all numbers, letters, spaces and line breaks from the .txt document. Be careful not to delete the "[]/" symbols. Then generate a new .txt document and give me the download address, in the newly generated .txt document for the second part of the work. Part 2, open and read the first part of the generated .txt document, which contains a total of 2 books, according to the book title, please extract the 2 books, each book to generate a .txt document (document name "booktitle_cleaned1"). Note that the beginning of each book for the title of the book, the title of the book before the mark "[title]", each book at the end of the mark "[/title]", you can judge the end of the beginning of each book accordingly.
+
+4. Use ChatGpt CI to verify the extracted literature. 
+    # Note: This step's important. Sometimes ChatGpt might give a file that's 0 Byte even if the title's right. But if you ask it to double-check, it can catch and fix this.
+
+Prompt：
+- Please check the above txt file, if the size of the file is 0byte, please try again to extract the book. Finally, generate a zip file for me to download. the zip file needs to include all .txt files you generated in step 1. Please rename them as "booktitle_cleaned1.txt"). Thanks.
+- Follow my instruction step by step: 1. Open and read my file. 2. Remove all numbers, letters, symbols, spaces, and line breaks using regular expressions. Note: Do not delete any Chinese characters. 3. Return to me a .txt file named "booktitle_cleaned2".
+
+5. （Optional）Manually merge each file to form a .txt document database containing all the literature. 
+    # Tip: If you're dealing with more than just a couple of documents, consider using a Python script to automate this process. It can save you a lot of manual work.
+

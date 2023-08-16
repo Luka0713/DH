@@ -1,0 +1,18 @@
+1. 使用python对提取出的.txt文档进行标注。我们提供两个python包，分别为Jesuitknowledge_1.py和Jesuitknowledge_2.py.
+   # _1.py是使用CkipTagger对Database进行标注的.py,其中_1.py是对单个文件进行标注，_2.py是对input文件夹中的所有.txt文件进行标注。
+   # _1.py是从gdrive拉取model，_2.py是需要提前将model下载到本地。
+   # 使用前记得更改data、input和output的地址。
+     #你可以参考文件夹中的"1674_坤輿圖說_WS.txt"和"1799_地球圖説_WS.txt"这两个已经完成分词的文件。注意，CkipTagger的分词质量虽然超过Jieba，但并不是完全正确的，仍有必要通过人工进行校验。
+
+2. (可选)Extract_WS_POS_NER.py # 提取某文件夹中所有.txt文件的WS、POS和NER结果。
+
+3. 使用Ctext网站的N-gram工具，对1674_坤輿圖說_WS.txt和1799_地球圖説_WS.txt这两个文件提取词频，并导出CSV文件。工具地址为：http://ctext.org/plugins/texttools/#ngram。
+
+4. 对数据进行手动筛选，然后利用ChatGpt Code Interpreter进行数据分析。
+
+=======================
+本项目使用开源中文处理工具包CkipTagger，包含（WS）分词、（POS）词性标注、（NER）实体辨识功能。
+
+通过本小组人工校验，其分词正确率明显高于Jieba。
+
+项目地址：https://github.com/ckiplab/ckiptagger

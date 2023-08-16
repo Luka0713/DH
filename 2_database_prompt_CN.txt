@@ -1,0 +1,29 @@
+1_task.pdf中有两本书，《坤輿圖說》和《地球圖說》，分别由1674年和1799年的不同耶稣会传教士所写。两者都讨论了制图学。我们正在尝试了解，由于传教士的影响，这些年来中国的天文学和地理学知识是如何发展的。
+
+    # 注意，1_task.pdf中仅包含作为示例的2本传教士文献。文件夹中的示例图片，以及示例.xlsx文档，来源于一个包含69部传教士文献的database。
+
+1. OCR《某丛书》，形成一个整体的.txt文档。
+
+    # 我们推荐使用福昕PDF阅读器自带的OCR工具，请注意选择需要识别的内容为“台湾繁体”。我们也欢迎您尝试其他OCR工具。
+    # 注意，为确保OCR质量，有必要进行人工校对。
+
+2. 手动删除文档中的封面封底、非传教士本人所作的序/叙/跋、脚注等冗余内容；手动添加每本书的起始符号（["书名"] 、［/"书名"]） 。形成一个_work1.txt文档。
+    # 天头地脚可以在这个阶段去除，也可以留到下个阶段让ChatGpt去除。
+
+3. 使用ChatGPT CI进行dataclean和文本提取：删除文档中的标点符号、英文字母、数字、空格、换行符等。*形成《某丛书》中所包含的每一本书的_clean1.txt文档。
+    # clean过程中要保留每本书的起始符号，否则提取易失败。
+
+Prompt：
+- My task is divided into 2 parts. In part 1, open and read my document and delete all numbers, letters, spaces and line breaks from the .txt document. Be careful not to delete the "[]/" symbols. Then generate a new .txt document (named "书名_后缀.txt", and give me the download address), in the newly generated .txt document for the second part of the work. Part 2, open and read the first part of the generated .txt document, which contains a total of 14 books, according to the book title, please extract the 14 books, each book to generate a .txt document (document name "book_cleaned1"). Note that the beginning of each book for the title of the book, the title of the book before the mark "[title]", each book at the end of the mark "[/title]", you can judge the end of the beginning of each book accordingly.
+
+4. 使用ChatGpt CI对已提取文献进行校验。 得到从1_task.pdf提取出的《坤輿圖說》_cleaned2.txt and 《地球圖說》_cleaned2.txt.
+
+    # 校验这一步很重要，因为ChatGpt有时候会返回大小为0 Byte的file，但只要要求它检验，它就能发现这一问题并改正。
+
+Prompt：
+- Please check the above txt file, if the size of the file is 0byte, please try again to extract the book. Finally, generate a zip file for me to download. the zip file needs to include the .txt file you generated in step 1 (please rename it to "书名_后缀.txt") and a txt file for each book (please rename it to " 书名_后缀"). Thanks.
+- Follow my instruction step by step: 1. Open and read my file. 2. Remove all numbers, letters, symbols, spaces, and line breaks using regular expressions. Note: Do not delete any Chinese characters. 3. Return to me a .txt file named "book_cleaned".
+    # 如果同时处理多个文本，可以要求ChatGpt将所有输出结果，汇总成一个.zip文件，以方便下载。也可以要求ChatGpt先返回一个example，以确保它正确理解并执行了Prompt。（它也有可能会主动提供example。）
+
+5.（可选）手动将每册文件合并，形成一个包含所有文献的database的.txt文档。# 也可以用python程序来代替人工
+
