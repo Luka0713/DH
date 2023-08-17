@@ -19,14 +19,19 @@ Here's our workflows and prompts:
     # Important: Keep the starting symbol for each book. If you don't, the extraction might not work.
 
 Prompt：
-- My task is divided into 2 parts. In part 1, open and read my document and delete all numbers, letters, spaces and line breaks from the .txt document. Be careful not to delete the "[]/" symbols. Then generate a new .txt document and give me the download address, in the newly generated .txt document for the second part of the work. Part 2, open and read the first part of the generated .txt document, which contains a total of 2 books, according to the book title, please extract the 2 books, each book to generate a .txt document (document name "booktitle_cleaned1"). Note that the beginning of each book for the title of the book, the title of the book before the mark "[title]", each book at the end of the mark "[/title]", you can judge the end of the beginning of each book accordingly.
+- My task is divided into 2 parts. 
+In part 1, open and read my document and delete all numbers, letters, spaces and line breaks from the .txt document. Be careful not to delete the "[]/" symbols. 
+Then generate a new .txt document and give me the download address, in the newly generated .txt document for the second part of the work. 
+Part 2, open and read the first part of the generated .txt document, which contains a total of 2 books, according to the book title, please extract the 2 books, each book to generate a .txt document (document name "booktitle_cleaned1"). Note that the beginning of each book for the title of the book, the title of the book before the mark "[title]", each book at the end of the mark "[/title]", you can judge the end of the beginning of each book accordingly.
 
 4. Use ChatGpt CI to verify the extracted literature. 
     # Note: This step's important. Sometimes ChatGpt might give a file that's 0 Byte even if the title's right. But if you ask it to double-check, it can catch and fix this.
 
 Prompt：
-- Please check the above txt file, if the size of the file is 0byte, please try again to extract the book. Finally, generate a zip file for me to download. the zip file needs to include all .txt files you generated in step 1. Please rename them as "booktitle_cleaned1.txt"). Thanks.
-- Follow my instruction step by step: 1. Open and read my file. 2. Remove all numbers, letters, symbols, spaces, and line breaks using regular expressions. Note: Do not delete any Chinese characters. 3. Return to me a .txt file named "booktitle_cleaned2".
+- Please check the above txt file, if the size of the file is 0byte, please try again to extract the book. Finally, generate a zip file for me to download. 
+the zip file needs to include all .txt files you generated in step 1. Please rename them as "booktitle_cleaned1.txt"). Thanks.
+- Follow my instruction step by step: 1. Open and read my file. 2. Remove all numbers, letters, symbols, spaces, and line breaks using regular expressions. 
+Note: Do not delete any Chinese characters. 3. Return to me a .txt file named "booktitle_cleaned2".
 
 5. （Optional）Manually merge each file to form a .txt document database containing all the literature. 
     # Tip: If you're dealing with more than just a couple of documents, consider using a Python script to automate this process. It can save you a lot of manual work.
